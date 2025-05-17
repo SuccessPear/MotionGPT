@@ -24,11 +24,11 @@ class HumanML3DDataModule(BASEDataModule):
         # Path to the dataset
         data_root = cfg.DATASET.HUMANML3D.ROOT
         self.hparams.data_root = data_root
-        self.hparams.text_dir = pjoin(data_root, "texts")
+        self.hparams.text_dir = pjoin(data_root, "texts") # LTC: modify to train with vietnamese text
         self.hparams.motion_dir = pjoin(data_root, 'new_joint_vecs')
         
         # Mean and std of the dataset
-        dis_data_root = pjoin(cfg.DATASET.HUMANML3D.MEAN_STD_PATH, 't2m', "VQVAEV3_CB1024_CMT_H1024_NRES3", "meta")
+        dis_data_root = pjoin(cfg.DATASET.HUMANML3D.MEAN_STD_PATH, 't2m', "VQVAEV3_CB1024_CMT_H1024_NRES3", "meta") # LTC
         self.hparams.mean = np.load(pjoin(dis_data_root, "mean.npy"))
         self.hparams.std = np.load(pjoin(dis_data_root, "std.npy"))
         

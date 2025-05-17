@@ -40,7 +40,7 @@ class Text2MotionDataset(data.Dataset):
         # Data path
         split_file = pjoin(data_root, split + '.txt')
         motion_dir = pjoin(data_root, 'new_joint_vecs')
-        text_dir = pjoin(data_root, 'texts')
+        text_dir = pjoin(data_root, 'texts') 
 
         # Data id list
         self.id_list = []

@@ -7,7 +7,7 @@ import heapq
 import torch
 from torch import Tensor, nn
 from torch.distributions.distribution import Distribution
-from transformers import AutoModelForSeq2SeqLM, T5ForConditionalGeneration, T5Tokenizer, AutoTokenizer, GPT2LMHeadModel, GPT2Tokenizer
+from transformers import AutoModelForSeq2SeqLM, T5ForConditionalGeneration, T5Tokenizer, AutoTokenizer, GPT2LMHeadModel, GPT2Tokenizer, MT5ForConditionalGeneration, MT5Tokenizer
 import random
 from typing import Optional
 from .tools.token_emb import NewTokenEmb
@@ -50,13 +50,18 @@ class MLM(nn.Module):
 
         # Instantiate language model
         self.tokenizer = AutoTokenizer.from_pretrained(model_path, legacy=True)
+        #self.tokenizer = AutoTokenizer.from_pretrained("google/mt5-base", use_fast=False)
         if model_type == "t5":
             self.language_model = T5ForConditionalGeneration.from_pretrained(
                 model_path)
-            self.lm_type = 'encdec'
         elif model_type == "gpt2":
             self.language_model = GPT2LMHeadModel.from_pretrained(model_path)
             self.lm_type = 'dec'
+        # LTC
+        # elif model_type == "mt5":
+        #     self.language_model = MT5ForConditionalGeneration.from_pretrained("google/mt5-base")
+        #     self.lm_type = 'encdec'
+
         else:
             raise ValueError("type must be either seq2seq or conditional")
 

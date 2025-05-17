@@ -7,7 +7,7 @@ import cv2
 import os
 import numpy as np
 import pytorch_lightning as pl
-import moviepy.editor as mp
+import moviepy as mp
 from pathlib import Path
 from mGPT.data.build_data import build_data
 from mGPT.models.build_model import build_model
@@ -38,6 +38,7 @@ state_dict = torch.load(cfg.TEST.CHECKPOINTS, map_location="cpu")["state_dict"]
 model.load_state_dict(state_dict)
 model.to(device)
 
+cfg.model.whisper_path = "openai/whisper-large-v2" # LTC - modify
 audio_processor = WhisperProcessor.from_pretrained(cfg.model.whisper_path)
 audio_model = WhisperForConditionalGeneration.from_pretrained(cfg.model.whisper_path).to(device)
 forced_decoder_ids = audio_processor.get_decoder_prompt_ids(language="zh", task="translate")
@@ -513,7 +514,7 @@ with gr.Blocks(css=customCSS) as demo:
                     container=False)
 
             with gr.Row():
-                aud = gr.Audio(source="microphone",
+                aud = gr.Audio(sources="microphone",
                                label="Speak input",
                                type='filepath')
                 btn = gr.UploadButton("📁 Upload motion",

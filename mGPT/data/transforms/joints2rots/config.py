@@ -112,8 +112,8 @@ MMM_JOINT_MAP = {
 # mmm_smpl_dix = smpl2mmm_indexes
 # mmm_smpl_dix = smplh2mmm_indexes
 # todo - configable
-SMPL_MODEL_DIR = "/apdcephfs/share_1227775/shingxchen/AIMotion/TMOSTData/deps/smpl_models/"
-GMM_MODEL_DIR = "/apdcephfs/share_1227775/shingxchen/AIMotion/TMOSTData/deps/smpl_models/"
-SMPL_MEAN_FILE = "/apdcephfs/share_1227775/shingxchen/AIMotion/TMOSTData/deps/smpl_models/neutral_smpl_mean_params.h5"
+SMPL_MODEL_DIR = "/home/successpear/Documents/Paris-Saclay/1.2/MotionGPT/deps/smpl/smpl_models/"
+GMM_MODEL_DIR = "/home/successpear/Documents/Paris-Saclay/1.2/MotionGPT/deps/smpl/smpl_models/"
+SMPL_MEAN_FILE = "/home/successpear/Documents/Paris-Saclay/1.2/MotionGPT/deps/smpl/smpl_models/neutral_smpl_mean_params.h5"
 # for collsion
 Part_Seg_DIR = "/apdcephfs/share_1227775/shingxchen/AIMotion/TMOSTData/deps/smpl_models/smplx_parts_segm.pkl"

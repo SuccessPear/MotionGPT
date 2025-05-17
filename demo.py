@@ -14,6 +14,7 @@ from mGPT.data.build_data import build_data
 from mGPT.models.build_model import build_model
 from mGPT.utils.logger import create_logger
 import mGPT.render.matplot.plot_3d_global as plot_3d
+from torchsummary import summary
 
 
 def motion_token_to_string(motion_token, lengths, codebook_size=512):
@@ -156,15 +157,25 @@ def main():
     # loading state dict
     if cfg.TEST.CHECKPOINTS:
         logger.info("Loading checkpoints from {}".format(cfg.TEST.CHECKPOINTS))
-        state_dict = torch.load(cfg.TEST.CHECKPOINTS,
-                                map_location="cpu")["state_dict"]
-        model.load_state_dict(state_dict)
+        # state_dict = torch.load(cfg.TEST.CHECKPOINTS,
+        #                         map_location="cpu")["state_dict"]
+        # model.load_state_dict(state_dict)
+        # LTC
+        state_dict = torch.load(cfg.TEST.CHECKPOINTS, map_location="cpu")["state_dict"]
+
+        # 🔥 Filter out incompatible keys (T5 embeddings)
+        filtered_state_dict = {
+            k: v for k, v in state_dict.items() if not k.startswith("lm.language_model.")
+        }
+
+        # 🧠 Load remaining weights only
+        model.load_state_dict(filtered_state_dict, strict=False)
+
     else:
         logger.warning(
             "No checkpoints provided, using random initialized model")
 
     model.to(device)
-
     if cfg.DEMO.EXAMPLE:
         # Check txt file input
         # load txt
@@ -195,6 +206,7 @@ def main():
                 batch["motion_tailing"] = return_dict['motion_tailing'][
                     b * batch_size:(b + 1) * batch_size]
 
+            #print(model)
             outputs = model(batch, task=cfg.model.params.task)
             logger.info('Model forward finished! Start saving results...')
             joints = outputs["joints"]

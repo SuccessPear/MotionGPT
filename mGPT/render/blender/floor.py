@@ -14,6 +14,7 @@ def get_trajectory(data, is_mesh):
 
 def plot_floor(data, big_plane=True):
     # Create a floor
+    print(data.shape) # LTC
     minx, miny, _ = data.min(axis=(0, 1))
     maxx, maxy, _ = data.max(axis=(0, 1))
     minz = 0

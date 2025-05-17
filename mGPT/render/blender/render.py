@@ -116,7 +116,7 @@ def render(npydata,
 
     # Number of frames possible to render
     nframes = len(data)
-
+    print("nframes: ", nframes)
     # Show the trajectory
     show_traj(data.trajectory)
 
