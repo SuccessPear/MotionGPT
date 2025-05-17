@@ -54,6 +54,7 @@ class MLM(nn.Module):
         if model_type == "t5":
             self.language_model = T5ForConditionalGeneration.from_pretrained(
                 model_path)
+            self.lm_type = 'encdec'
         elif model_type == "gpt2":
             self.language_model = GPT2LMHeadModel.from_pretrained(model_path)
             self.lm_type = 'dec'
