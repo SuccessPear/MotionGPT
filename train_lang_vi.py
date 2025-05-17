@@ -20,7 +20,8 @@ def main():
 
     # === DataModule ===
     datamodule = build_data(cfg)
-    datamodule.setup(stage="fit")
+    print(type(datamodule))
+    #datamodule.setup(stage="fit")
     train_loader = datamodule.train_dataloader()
     print(f"Number of batches {len(train_loader)}")
 

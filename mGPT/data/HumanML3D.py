@@ -73,7 +73,7 @@ class HumanML3DDataModule(BASEDataModule):
             self.Dataset = Text2MotionDataset
 
         # Get additional info of the dataset
-        self._sample_set = self.get_sample_set(overrides={"split": "test", "tiny": True})
+        self._sample_set = self.get_sample_set(overrides={"split": "test", "tiny": True}) # LTC
         self.nfeats = self._sample_set.nfeats
         cfg.DATASET.NFEATS = self.nfeats
         
